@@ -31,38 +31,63 @@ The repository contains the complete development history through incremental Git
 
 # 2. Technology Stack
 
-FastAPI
-Python 3.12 
-PostgreSQL 16 
-SQLAlchemy
-JWT
-bcrypt
-Redis 7
-Alembic
-Pytest
-Ruff
-Docker 
-Swagger.
-
+- FastAPI
+- Python 3.12
+- PostgreSQL 16
+- SQLAlchemy
+- JWT
+- bcrypt
+- Redis 7
+- Alembic
+- Pytest
+- Ruff
+- Docker
+- Docker Compose
+- GitHub Actions
+- Swagger / OpenAPI
 
 # 3. Application Architecture
 
-Client
-  |
-  v
-POST /sessions/{session_id}/evaluate
-  |
-  v
-Authentication
-  |
-  v
-Authorization
-  |
-  v
-Create Evaluation
-  |
-  v
-Redis Queue
-  |
+The application follows a backend service architecture with FastAPI as the main API layer.
+
+# Main Components
+
+1. **Client**
+   - Sends HTTP requests to the FastAPI application.
+   - Swagger UI can be used as an interactive client.
+
+2. **FastAPI**
+   - Handles API requests.
+   - Handles authentication and JWT validation.
+   - Applies role-based access control.
+   - Provides session CRUD APIs.
+   - Provides the evaluation endpoint.
+
+3. **PostgreSQL**
+   - Stores users.
+   - Stores learning sessions.
+   - Stores evaluations.
+   - Maintains relationships between users, parents, students, teachers, and sessions.
+
+4. **Redis**
+   - Acts as an asynchronous evaluation queue.
+   - Stores evaluation jobs waiting to be processed.
+
+5. **Alembic**
+   - Manages database schema migrations.
+   - Keeps database changes version controlled.
+
+6. **Docker Compose**
+   - Runs the FastAPI application, PostgreSQL, and Redis as separate services.
+
+### Evaluation Request Flow
+
+1. Client sends an evaluation request.
+2. FastAPI authenticates the user.
+3. FastAPI checks the user's authorization.
+4. An evaluation record is created in PostgreSQL.
+5. The evaluation job is added to the Redis queue.
+6. The API returns HTTP `202 Accepted`.
+7. A background worker can process the queued evaluation asynchronously.
   v
 HTTP 202 Accepted
