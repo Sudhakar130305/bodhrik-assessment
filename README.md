@@ -472,7 +472,7 @@ The tests verify both application functionality and authorization boundaries.
 
 ---
 
-## 16. Project Structure
+## 15. Project Structure
 
 ```text
 bodhrik-assessment/
