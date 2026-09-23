@@ -481,46 +481,51 @@ bodhrik-assessment/
 │   ├── __init__.py
 │   ├── main.py
 │   ├── database.py
-│   ├── models.py
-│   ├── schemas.py
-│   ├── auth.py
+│   │
+│   ├── auth/
+│   │   ├── __init__.py
+│   │   ├── dependencies.py
+│   │   └── security.py
+│   │
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── user.py
+│   │   ├── session.py
+│   │   └── evaluation.py
+│   │
+│   ├── schemas/
+│   │   ├── __init__.py
+│   │   ├── user.py
+│   │   ├── session.py
+│   │   └── evaluation.py
+│   │
 │   └── routers/
+│       ├── __init__.py
 │       ├── auth.py
 │       ├── sessions.py
 │       └── evaluations.py
 │
 ├── alembic/
 │   ├── versions/
+│   │   ├── 175ac57a3ebf_initial_schema.py
+│   │   ├── 5edfd7135860_migration_message.py
+│   │   └── e0e9bb20a37d_create_application_tables.py
 │   └── env.py
 │
 ├── tests/
 │   └── test_api.py
 │
-├── screenshots/
-│   ├── docker.png
-│   ├── swagger.png
-│   ├── authentication.png
-│   ├── session-crud.png
-│   ├── teacher-rbac.png
-│   ├── parent-rbac.png
-│   ├── redis-queue.png
-│   ├── postgres.png
-│   ├── tests.png
-│   └── github-actions.png
-│
 ├── .github/
 │   └── workflows/
 │       └── ci.yml
 │
-├── alembic.ini
-├── Dockerfile
-├── docker-compose.yml
-├── requirements.txt
 ├── .env.example
 ├── .gitignore
 ├── DESIGN.md
-└── README.md
-```
-
+├── Dockerfile
+├── README.md
+├── alembic.ini
+├── docker-compose.yml
+└── requirements.txt
 
 <img width="680" height="842" alt="Screenshot 2026-09-23 190406" src="https://github.com/user-attachments/assets/5790b68d-11f6-4109-ac1d-1377f041ca2f" />
