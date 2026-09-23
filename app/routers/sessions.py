@@ -11,7 +11,6 @@ from app.schemas.session import (
     SessionUpdate,
 )
 
-
 router = APIRouter(
     prefix="/sessions",
     tags=["Sessions"],
@@ -88,12 +87,14 @@ def create_session(
         )
 
     # A teacher can create sessions only for themselves
-    if current_user.role == "teacher":
-        if session_data.teacher_id != current_user.id:
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Teachers can only create their own sessions",
-            )
+    if (
+    current_user.role == "teacher"
+    and session_data.teacher_id != current_user.id
+    ):
+        raise HTTPException(
+        status_code=status.HTTP_403_FORBIDDEN,
+        detail="Teachers can only create sessions for themselves",
+        )
 
     new_session = LearningSession(
         title=session_data.title,
@@ -235,15 +236,15 @@ def update_session(
                 detail="Invalid child_id",
             )
 
-    if current_user.role == "teacher":
-        if (
-            "teacher_id" in update_data
-            and update_data["teacher_id"] != current_user.id
-        ):
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Teachers cannot assign sessions to another teacher",
-            )
+    if (
+    current_user.role == "teacher"
+    and "teacher_id" in update_data
+    and update_data["teacher_id"] != current_user.id
+    ):
+        raise HTTPException(
+        status_code=status.HTTP_403_FORBIDDEN,
+        detail="Teachers cannot assign sessions to another teacher",
+        )
 
     for field, value in update_data.items():
         setattr(
@@ -293,4 +294,3 @@ def delete_session(
     db.delete(learning_session)
     db.commit()
 
-    return None

@@ -11,7 +11,6 @@ from app.models.user import User
 from app.schemas.evaluation import EvaluationResponse
 from app.services.redis import redis_client
 
-
 router = APIRouter(
     prefix="/sessions",
     tags=["Evaluations"],

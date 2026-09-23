@@ -1,15 +1,9 @@
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
+from sqlalchemy import engine_from_config, pool
 
 from alembic import context
-
 from app.database import Base, settings
-from app.models.user import User
-from app.models.session import LearningSession
-from app.models.evaluation import Evaluation
-
 
 config = context.config
 

@@ -1,21 +1,15 @@
 from fastapi import Depends, FastAPI
 
 from app.auth.dependencies import get_current_user
-from app.database import Base, engine
-from app.models import User, LearningSession, Evaluation
-from app.routers import auth, sessions, evaluations
+from app.models.user import User
+from app.routers import auth, evaluations, sessions
 
-
-# Create database tables
-
-# Create FastAPI application
 app = FastAPI(
     title="Bodhrik Education Platform API",
     version="1.0.0",
 )
 
 
-# Register routers
 app.include_router(auth.router)
 app.include_router(sessions.router)
 app.include_router(evaluations.router)
