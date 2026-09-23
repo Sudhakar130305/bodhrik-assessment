@@ -32,7 +32,37 @@ The application provides APIs for managing users, teachers, parents, students, l
 - Docker
 - Swagger
 
-# 3. Application Architecture
+# 3. System Design & Evaluation Flow
+
+The application follows a backend service architecture with FastAPI as the main API layer.
+
+### Main Components
+
+1. **Client**
+   - Sends HTTP requests to the FastAPI application.
+   - Swagger UI can be used as an interactive client.
+
+2. **FastAPI**
+   - Handles API requests.
+   - Handles authentication and JWT validation.
+   - Applies role-based access control.
+   - Provides session CRUD APIs.
+   - Provides the evaluation endpoint.
+
+3. **PostgreSQL**
+   - Stores users, learning sessions, and evaluations.
+   - Maintains relationships between parents, students, teachers, and sessions.
+
+4. **Redis**
+   - Acts as an asynchronous evaluation queue.
+   - Stores evaluation jobs waiting to be processed.
+
+5. **Alembic**
+   - Manages database schema migrations.
+   - Keeps database changes version controlled.
+
+6. **Docker Compose**
+   - Runs FastAPI, PostgreSQL, and Redis as separate services.
 
 The application follows a backend service architecture with FastAPI as the main API layer.
 
@@ -42,9 +72,6 @@ The application follows a backend service architecture with FastAPI as the main 
 4. An evaluation record is created in PostgreSQL.
 5. The evaluation job is added to the Redis queue.
 6. The API returns HTTP `202 Accepted`.
-7. A background worker can process the queued evaluation asynchronously.
-  v
-HTTP 202 Accepted
 
 ## 4. Requirements
 
