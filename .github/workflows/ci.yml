@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+    branches: ["main", "master"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: bodhrik
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d bodhrik"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=10
+
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd="redis-cli ping"
+          --health-interval=5s
+          --health-timeout=3s
+          --health-retries=10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install ruff
+
+      - name: Run migrations
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/bodhrik
+          REDIS_URL: redis://localhost:6379/0
+          JWT_SECRET: github-actions-test-secret-key-2026-secure
+        run: alembic upgrade head
+
+      - name: Run Ruff
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/bodhrik
+          REDIS_URL: redis://localhost:6379/0
+          JWT_SECRET: github-actions-test-secret-key-2026-secure
+        run: ruff check .
+
+      - name: Run tests
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/bodhrik
+          REDIS_URL: redis://localhost:6379/0
+          JWT_SECRET: github-actions-test-secret-key-2026-secure
+        run: pytest -v
