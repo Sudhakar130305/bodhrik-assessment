@@ -9,24 +9,15 @@ The application provides APIs for managing users, teachers, parents, students, l
 
 - User registration and JWT-based authentication
 - Role-based access control
-- Admin, Teacher, Parent, and Student roles
 - Learning Session CRUD operations
-- Teacher-specific session access
-- Parent access restricted to their own child's sessions
 - Evaluation creation and queueing
 - Redis-based evaluation queue
-- PostgreSQL database
 - SQLAlchemy ORM
 - Alembic database migrations
 - Dockerized application
-- Docker Compose orchestration
 - Automated tests using Pytest
-- Code quality checks using Ruff
-- GitHub Actions CI pipeline
-- Swagger/OpenAPI API documentation
+- Swagger API documentation
 - Health check endpoint
-
-
 
 # 2. Technology Stack
 
