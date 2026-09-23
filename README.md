@@ -527,5 +527,5 @@ bodhrik-assessment/
 ├── alembic.ini
 ├── docker-compose.yml
 └── requirements.txt
-
+```
 <img width="680" height="842" alt="Screenshot 2026-09-23 190406" src="https://github.com/user-attachments/assets/5790b68d-11f6-4109-ac1d-1377f041ca2f" />
