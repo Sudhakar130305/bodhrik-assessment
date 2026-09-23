@@ -1,6 +1,6 @@
 # Bodhrik Education Platform API
 
-A backend service for an education platform built as part of the Bodhrik AI Fellow Full Stack Development Technical Assessment.
+A backend service for an education platform.
 
 The application provides APIs for managing users, teachers, parents, students, learning sessions, and evaluations. It demonstrates authentication, role-based access control, PostgreSQL data modeling, Redis-based asynchronous processing, Dockerized deployment, database migrations, automated testing, and continuous integration.
 
