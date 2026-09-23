@@ -471,8 +471,17 @@ Expected result:
 The tests verify both application functionality and authorization boundaries.
 
 ---
+## 15. Code Quality and Linting
 
-## 15. Project Structure
+Ruff is used for Python linting and code quality checks.
+
+Run Ruff locally:
+
+```bash
+docker exec -it bodhrik_api ruff check .
+```
+
+## 16. Project Structure
 
 ```text
 bodhrik-assessment/
